@@ -66,4 +66,14 @@ public class UsuarioService {
     }
 
 
+    public String GetContatoEmergencia(long id) {
+
+      var us = repository.findById(id);
+
+      if ((us.isPresent())){
+        return   us.get().getContadoEmergencia();
+      } else
+          return "erro";
+
+    }
 }

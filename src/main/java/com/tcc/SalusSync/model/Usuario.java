@@ -20,19 +20,19 @@ public class Usuario {
     private String senha;
     private double altura;
     private double peso;
-
+    private String contadoEmergencia;
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Agenda> agenda= new ArrayList<>();
 
 
-    public Usuario(String nome, String cpf, String email, String senha, double altura, double peso) {
+    public Usuario(String nome, String cpf, String email, String senha, double altura, double peso,String contadoEmergencia) {
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
         this.senha= senha;
         this.altura = altura;
         this.peso = peso;
-
+        this.contadoEmergencia = contadoEmergencia;
     }
 
     public Usuario(){}

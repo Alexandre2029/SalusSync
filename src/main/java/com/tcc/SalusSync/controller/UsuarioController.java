@@ -1,9 +1,11 @@
 package com.tcc.SalusSync.controller;
 
 import com.tcc.SalusSync.dto.AgendaDtoList;
+import com.tcc.SalusSync.dto.BatimentoDtoList;
 import com.tcc.SalusSync.model.Usuario;
 import com.tcc.SalusSync.dto.UsuarioDto;
 import com.tcc.SalusSync.service.AgendaService;
+import com.tcc.SalusSync.service.BatimentoService;
 import com.tcc.SalusSync.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,9 @@ public class UsuarioController {
 
     @Autowired
     private AgendaService agendaService;
+
+    @Autowired
+    private BatimentoService batimentoService;
 
     @PostMapping("/cadastro")
     public ResponseEntity<String> CadastroUsuario(@RequestBody UsuarioDto dados) {
@@ -38,6 +43,17 @@ public class UsuarioController {
       return   agendaService.listaDeAgendamentosUsuario(id);
     }
 
+    @GetMapping("/batimentos{id}")
+    public List<BatimentoDtoList> batimentos(@PathVariable long id){
+        return batimentoService.batimentosList(id) ;
+    }
+
+     @GetMapping("/Cemergencia{id}")
+    public String retornaContato(@PathVariable long id){
+
+        return service.GetContatoEmergencia(id);
+
+     }
 
 
     }

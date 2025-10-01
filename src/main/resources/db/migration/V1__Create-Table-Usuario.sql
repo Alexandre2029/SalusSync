@@ -1,0 +1,11 @@
+CREATE TABLE usuario (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    cpf VARCHAR(14) NOT NULL UNIQUE,
+    login TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    altura DOUBLE PRECISION,
+    peso DOUBLE PRECISION,
+    contado_emergencia VARCHAR(255),
+    role TEXT NOT NULL
+);

@@ -10,26 +10,25 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter
-public class Batimento {
+public class Calories {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    private int calories;
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-    private LocalDateTime hora;
-
-    private int batimentosMinutos;
+    private LocalDateTime date;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_cpf", referencedColumnName = "cpf")
+    @JoinColumn(name = "usuario_cpf")
     private Usuario usuario;
 
-
-    public Batimento(LocalDateTime data, int batimentos, Usuario usuario) {
-        this.hora = data;
-        this.batimentosMinutos = batimentos;
+    public Calories(LocalDateTime data, int calories, Usuario usuario) {
+        this.date = data;
+        this.calories = calories;
         this.usuario = usuario;
     }
 
-    public Batimento(){}
+    public Calories(){}
+
 }

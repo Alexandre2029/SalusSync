@@ -8,7 +8,7 @@ public record AgendaDto(String descricao,
                         @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
                         LocalDateTime data,
                         Long usuarioId,
-                        Long medicoId
+                        String medicoCpf
 
                         ) {
 

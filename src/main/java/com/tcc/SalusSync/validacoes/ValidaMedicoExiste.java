@@ -18,11 +18,11 @@ public class ValidaMedicoExiste {
     public Medico medicoExiste(AgendaDto agendaDto){
         Medico medico = new Medico();
 
-        if (medicoRepository.findById(agendaDto.medicoId()).isEmpty()){
+        if (medicoRepository.findMedicoByCpf(agendaDto.medicoCpf()).isEmpty()){
             throw new RuntimeException("MEDICO NÃO EXISTE");
         }
 
-        Optional<Medico> OpMedico = medicoRepository.findById(agendaDto.medicoId());
+        Optional<Medico> OpMedico = medicoRepository.findMedicoByCpf(agendaDto.medicoCpf());
 
         if (OpMedico.isPresent())
             medico = OpMedico.get();

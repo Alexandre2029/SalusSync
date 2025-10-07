@@ -27,7 +27,7 @@ public class BatimentoService {
         Usuario usuario = new Usuario();
 
         try{
-            usuario = validaUsuarioExiste.UsuarioExiste(dadosBatimento.usuarioId());
+            usuario = validaUsuarioExiste.UsuarioExiste(dadosBatimento.cpf());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -36,15 +36,15 @@ public class BatimentoService {
 
         batimentoRepository.save(batimento);
 
-        return ResponseEntity.ok( "deu bom");
+        return ResponseEntity.ok( "Registro salvo com sucesso");
 
     }
 
-    public List<BatimentoDtoList> batimentosList(long id){
+    public ResponseEntity<List<BatimentoDtoList>> batimentosList(String cpf){
 
-        var batimentos= batimentoRepository.findAllByUsuarioId(id);
+        var batimentos= batimentoRepository.findAllByUsuarioCpf(cpf);
 
-        return  batimentos.stream().map(b -> new BatimentoDtoList(b.getHora(), b.getBatimentosMinutos())).collect(Collectors.toList());
+        return ResponseEntity.ok(batimentos.stream().map(b -> new BatimentoDtoList(b.getHora(), b.getBatimentosMinutos())).collect(Collectors.toList())) ;
 
 
     }

@@ -37,7 +37,7 @@ public class MedicoService {
                 return ResponseEntity.badRequest().body("EMAIL INVALIDO");
             }
 
-            if (repository.findByLogin(medico.getLogin())!= null) {
+            if (repository.findByLogin(medico.getLogin()).isPresent()) {
                 return ResponseEntity.badRequest().body("EMAIL JÁ CASTRADO");
             }
         }

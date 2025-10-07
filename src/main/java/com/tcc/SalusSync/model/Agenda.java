@@ -24,7 +24,7 @@ public class Agenda {
    @JsonBackReference
     private Usuario usuario;
    @ManyToOne
-   @JoinColumn(name = "medico_id")
+   @JoinColumn(name = "medico_cpf")
     private Medico medico;
 
 

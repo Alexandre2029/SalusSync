@@ -30,11 +30,11 @@ public interface AgendaRepository extends JpaRepository<Agenda, Long> {
     int atualizarSituacao(Long id,String situacao);
 
     @Query("SELECT CASE WHEN COUNT(a) > 0" +
-            " THEN true ELSE false END FROM Agenda a WHERE a.medico.id " +
-            "= :medicoId AND a.data BETWEEN :inicio AND :fim ")
-    boolean existeAgendamentoNoHorario(Long medicoId,LocalDateTime inicio,
+            " THEN true ELSE false END FROM Agenda a WHERE a.medico.cpf " +
+            "= :medicoCpf AND a.data BETWEEN :inicio AND :fim ")
+    boolean existeAgendamentoNoHorario(String medicoCpf,LocalDateTime inicio,
                                        LocalDateTime fim);
 
-    List<Agenda> findAllByMedicoId(long id);
+    List<Agenda> findAllByMedicoCpf(String cpf);
 
 }

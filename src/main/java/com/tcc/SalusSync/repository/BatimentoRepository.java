@@ -8,5 +8,5 @@ import java.util.List;
 public interface BatimentoRepository extends JpaRepository<Batimento, Long> {
 
 
-    List<Batimento> findAllByUsuarioId(long id);
+    List<Batimento> findAllByUsuarioCpf(String cpf);
 }

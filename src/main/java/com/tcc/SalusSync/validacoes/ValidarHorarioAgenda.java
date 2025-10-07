@@ -17,7 +17,7 @@ public class ValidarHorarioAgenda {
       LocalDateTime inicio = agendaDto.data().minusHours(1);
       LocalDateTime fim = agendaDto.data().plusHours(1);
 
-      var existe=  agendaRepository.existeAgendamentoNoHorario(agendaDto.medicoId(), inicio, fim);
+      var existe=  agendaRepository.existeAgendamentoNoHorario(agendaDto.medicoCpf(), inicio, fim);
         if(existe){
             return true;
         }else

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.Optional;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
@@ -15,7 +16,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     Optional<Usuario> findByLogin(String login);
 
-   // Optional<Usuario> findUsuarioByEmail(String email);
+    Optional<Usuario>findByCpf(String cpf);
+
 
     @Transactional
     @Modifying
@@ -26,4 +28,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     @Modifying
     @Query("UPDATE Usuario u SET u.altura = :altura WHERE u.cpf = :cpf")
     int atualizarAlturaPorCpf(String cpf, double altura);
+
+
 }

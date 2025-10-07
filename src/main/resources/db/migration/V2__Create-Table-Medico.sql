@@ -5,5 +5,6 @@ CREATE TABLE medico (
     crm VARCHAR(20) NOT NULL UNIQUE,
     login VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    especializacao VARCHAR(100)
+    especializacao VARCHAR(100),
+    role TEXT NOT NULL
 );

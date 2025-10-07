@@ -1,2 +1,0 @@
-ALTER TABLE agenda
-ADD COLUMN situacao VARCHAR(100);

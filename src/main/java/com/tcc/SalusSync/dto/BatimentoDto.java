@@ -8,6 +8,6 @@ public record BatimentoDto(
         @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
         LocalDateTime data,
         int batimentos,
-        Long usuarioId
+        String cpf
 ) {
 }

@@ -43,10 +43,8 @@ public class UsuarioController {
       return   agendaService.listaDeAgendamentosUsuario(id);
     }
 
-    @GetMapping("/batimentos{id}")
-    public List<BatimentoDtoList> batimentos(@PathVariable long id){
-        return batimentoService.batimentosList(id) ;
-    }
+
+
 
      @GetMapping("/Cemergencia{id}")
     public String retornaContato(@PathVariable long id){

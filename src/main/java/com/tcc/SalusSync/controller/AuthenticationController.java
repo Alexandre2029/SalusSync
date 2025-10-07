@@ -36,7 +36,6 @@ public class AuthenticationController {
     MedicoRepository medicoRepository;
 
 
-
     @Autowired
     private UsuarioRepository repository;
 
@@ -46,13 +45,6 @@ public class AuthenticationController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-//    @PostMapping("/login")
-//    public ResponseEntity<LoginResponseDTO> login(@RequestBody AuthenticationDTO data){
-//        var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
-//        var auth = authenticationManager.authenticate(usernamePassword);
-//        var token = tokenService.generateToken((Usuario) auth.getPrincipal());
-//        return ResponseEntity.ok(new LoginResponseDTO(token));
-//    }
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody AuthenticationDTO data) {

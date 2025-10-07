@@ -1,16 +1,13 @@
 package com.tcc.SalusSync.controller;
 
-import com.tcc.SalusSync.dto.AgendaDto;
 import com.tcc.SalusSync.dto.BatimentoDto;
-import com.tcc.SalusSync.service.AgendaService;
+import com.tcc.SalusSync.dto.BatimentoDtoList;
 import com.tcc.SalusSync.service.BatimentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/batimento")
@@ -25,6 +22,14 @@ public class BatimentoController {
 
         return batimentoService.salvarRegistro(dadosBatimento);
     }
+
+    @GetMapping("/registros{cpf}")
+    public  ResponseEntity<List<BatimentoDtoList>> ListBatimentos(@PathVariable String cpf ) {
+
+        return  batimentoService.batimentosList(cpf);
+
+    }
+
 
 
 

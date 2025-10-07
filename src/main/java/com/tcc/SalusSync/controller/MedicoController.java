@@ -36,8 +36,8 @@ public class MedicoController {
     }
 
 
-    @GetMapping("/agendamentos{id}")
-    public List<AgendaDtoList> agendamentos(@PathVariable long id){
-        return   agendaService.listaDeAgendamentosMedico(id);
+    @GetMapping("/agendamentos{cpf}")
+    public List<AgendaDtoList> agendamentos(@PathVariable String cpf){
+        return   agendaService.listaDeAgendamentosMedico(cpf);
     }
 }

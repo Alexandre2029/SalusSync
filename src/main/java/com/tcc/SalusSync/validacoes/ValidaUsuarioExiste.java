@@ -15,12 +15,12 @@ public class ValidaUsuarioExiste {
     private UsuarioRepository usuarioRepository;
 
 
-    public  Usuario UsuarioExiste(Long id){
+    public  Usuario UsuarioExiste(String cpf){
         Usuario usuario = new Usuario();
-        if (usuarioRepository.findById(id).isEmpty()) {
+        if (usuarioRepository.findByCpf(cpf).isEmpty()) {
             throw new RuntimeException("USUARIO NÃO EXISTE");
         }
-        Optional<Usuario> opUsuario = usuarioRepository.findById(id);
+        Optional<Usuario> opUsuario = usuarioRepository.findByCpf(cpf);
         if (opUsuario.isPresent())
             usuario = opUsuario.get();
         return usuario;

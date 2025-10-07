@@ -28,7 +28,7 @@ public class AgendaService {
     private MedicoRepository medicoRepository;
 
     @Autowired
-    private AgendaRepository repository;
+    private AgendaRepository agendaRepository;
 
     @Autowired
     private EmailService emailService;
@@ -44,16 +44,16 @@ public class AgendaService {
          Medico medico = new Medico();
 
         try{
-            usuario = validaUsuarioExiste.UsuarioExiste(agendaDto.usuarioId());
+            usuario = validaUsuarioExiste.UsuarioExiste(agendaDto.medicoCpf());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
 
-        if (medicoRepository.findById(agendaDto.medicoId()).isEmpty()){
+        if (medicoRepository.findMedicoByCpf(agendaDto.medicoCpf()).isEmpty()){
             return ResponseEntity.badRequest().body("Medico Não existem");
         }else{
-            Optional<Medico> OPAgenda = medicoRepository.findById(agendaDto.medicoId());
+            Optional<Medico> OPAgenda = medicoRepository.findMedicoByCpf(agendaDto.medicoCpf());
              medico = OPAgenda.get();
         }
 
@@ -68,7 +68,7 @@ public class AgendaService {
 
         emailService.enviarEmail("alexandre781220@gmail.com", "NOVO AGENDAMENTO", mensagem);
 
-        repository.save(agenda);
+        agendaRepository.save(agenda);
         return ResponseEntity.ok("agendamento concluido");
 
     }
@@ -78,24 +78,24 @@ public class AgendaService {
 
 
     public void deletarAgendaMedico(long id){
-         repository.deleteByMedicoId(id);
+         agendaRepository.deleteByMedicoId(id);
 
     }
 
     public void deletarAgendaUsuario(long id){
-        repository.deleteByUsuarioId(id);
+        agendaRepository.deleteByUsuarioId(id);
 
     }
 
     public ResponseEntity<String> alterarSituacao(AgendaDtoSituacao agSituacao) {
 
-        var ag = repository.findById(agSituacao.ID());
+        var ag = agendaRepository.findById(agSituacao.ID());
 
         if(ag.isEmpty()){
             return ResponseEntity.badRequest().body("Agendamento não existe");
         }
 
-        var teste =  repository.atualizarSituacao(agSituacao.ID(), agSituacao.situacao());
+        var teste =  agendaRepository.atualizarSituacao(agSituacao.ID(), agSituacao.situacao());
 
         if(teste >= 1) {
             return ResponseEntity.ok("Situação atualizada");
@@ -107,15 +107,15 @@ public class AgendaService {
 
     public List<AgendaDtoList> listaDeAgendamentosUsuario(long id) {
 
-        var agendas = repository.findAllByUsuarioId(id);
+        var agendas = agendaRepository.findAllByUsuarioId(id);
 
         return agendas.stream().map(a -> new AgendaDtoList(a.getDescricao(),a.getData())).collect(Collectors.toList());
 
     }
 
-    public List<AgendaDtoList> listaDeAgendamentosMedico(long id) {
+    public List<AgendaDtoList> listaDeAgendamentosMedico(String cpf) {
 
-        var agendas = repository.findAllByMedicoId(id);
+        var agendas = agendaRepository.findAllByMedicoCpf(cpf);
 
         return agendas.stream().map(a -> new AgendaDtoList(a.getDescricao(),a.getData())).collect(Collectors.toList());
 

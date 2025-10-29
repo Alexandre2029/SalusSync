@@ -1,5 +1,7 @@
 package com.tcc.SalusSync.dto;
 
+import java.util.Date;
+
 public record UsuarioDto(
         String nome,
         String cpf,
@@ -7,5 +9,7 @@ public record UsuarioDto(
         String senha,
         double altura,
         double peso,
-        String contato            ) {
+        String sexo,
+        Date dataNascimento
+) {
 }

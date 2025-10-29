@@ -9,26 +9,26 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter @Setter
-public class Calories {
+@Getter
+@Setter
+public class Oxigenio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private int calories;
+    private int oxigenio;
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-    private LocalDateTime date;
-
+    private LocalDateTime hora;
     @ManyToOne
-    @JoinColumn(name = "usuario_cpf")
+    @JoinColumn(name = "usuario_cpf", referencedColumnName = "cpf")
     private Usuario usuario;
 
-    public Calories(LocalDateTime data, int calories, Usuario usuario) {
-        this.date = data;
-        this.calories = calories;
+
+    public Oxigenio(LocalDateTime data, int oxigenioSaturacao, Usuario usuario) {
+        this.hora = data;
+        this.oxigenio=oxigenioSaturacao;
         this.usuario = usuario;
     }
 
-    public Calories(){}
-
+    public Oxigenio(){}
 }

@@ -1,7 +1,6 @@
 package com.tcc.SalusSync.controller;
 
 import com.tcc.SalusSync.dto.AgendaDtoList;
-import com.tcc.SalusSync.dto.BatimentoDtoList;
 import com.tcc.SalusSync.model.Usuario;
 import com.tcc.SalusSync.dto.UsuarioDto;
 import com.tcc.SalusSync.service.AgendaService;
@@ -24,12 +23,12 @@ public class UsuarioController {
 
     @Autowired
     private BatimentoService batimentoService;
-
-    @PostMapping("/cadastro")
-    public ResponseEntity<String> CadastroUsuario(@RequestBody UsuarioDto dados) {
-        Usuario usuario = new Usuario(dados.nome(), dados.cpf(), dados.email(), dados.senha(), dados.altura(), dados.peso(), dados.contato());
-        return  service.cadastrar(usuario);
-    }
+//
+//    @PostMapping("/cadastro")
+//    public ResponseEntity<String> CadastroUsuario(@RequestBody UsuarioDto dados) {
+//        Usuario usuario = new Usuario(dados.nome(), dados.cpf(), dados.email(), dados.senha(), dados.altura(), dados.peso(), dados.sexo(),dados.dataNascimento());
+//        return  service.cadastrar(usuario);
+//    }
 
     @DeleteMapping("/delete{id}")
     public ResponseEntity<String> DeletarUsuario(@PathVariable long id){

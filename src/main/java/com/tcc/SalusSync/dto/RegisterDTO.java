@@ -2,6 +2,8 @@ package com.tcc.SalusSync.dto;
 
 import com.tcc.SalusSync.model.UserRole;
 
+import java.util.Date;
+
 public record RegisterDTO(String login,
                           String password,
                           UserRole role,
@@ -9,6 +11,7 @@ public record RegisterDTO(String login,
                           String cpf,
                           double altura,
                           double peso,
-                          String contato
+                          String sexo,
+                          Date dataNascimento
 ) {
 }

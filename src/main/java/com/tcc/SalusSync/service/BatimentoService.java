@@ -1,8 +1,9 @@
 package com.tcc.SalusSync.service;
 
 
-import com.tcc.SalusSync.dto.BatimentoDto;
-import com.tcc.SalusSync.dto.BatimentoDtoList;
+import com.tcc.SalusSync.dto.HealthData.BtmDataDto;
+import com.tcc.SalusSync.dto.HealthData.BtmDataListDto;
+import com.tcc.SalusSync.dto.HealthData.BtmReturnDto;
 import com.tcc.SalusSync.model.Batimento;
 import com.tcc.SalusSync.model.Usuario;
 import com.tcc.SalusSync.repository.BatimentoRepository;
@@ -12,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class BatimentoService {
@@ -23,29 +23,34 @@ public class BatimentoService {
     @Autowired
     private ValidaUsuarioExiste validaUsuarioExiste;
 
-    public ResponseEntity<String> salvarRegistro(BatimentoDto dadosBatimento) {
-        Usuario usuario = new Usuario();
-
-        try{
-            usuario = validaUsuarioExiste.UsuarioExiste(dadosBatimento.cpf());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        Batimento batimento = new Batimento(dadosBatimento.data(), dadosBatimento.batimentos(),usuario);
+    public ResponseEntity<String> salvarRegistro(BtmDataDto dadosBatimento) {
+        Usuario usuario = validaUsuarioExiste.UsuarioExiste(dadosBatimento.cpf());
+        Batimento batimento = new Batimento(dadosBatimento.data(), dadosBatimento.batimento(), usuario);
 
         batimentoRepository.save(batimento);
 
-        return ResponseEntity.ok( "Registro salvo com sucesso");
-
+        return ResponseEntity.ok("Registro salvo com sucesso");
     }
 
-    public ResponseEntity<List<BatimentoDtoList>> batimentosList(String cpf){
+    public ResponseEntity<String> salvarRegistros(BtmDataListDto dadosLista) {
+        Usuario usuario = validaUsuarioExiste.UsuarioExiste(dadosLista.cpf());
 
-        var batimentos= batimentoRepository.findAllByUsuarioCpf(cpf);
+        List<Batimento> batimentos = dadosLista.dados().stream()
+                .map(d -> new Batimento(d.data(), d.batimento(), usuario))
+                .toList();
 
-        return ResponseEntity.ok(batimentos.stream().map(b -> new BatimentoDtoList(b.getHora(), b.getBatimentosMinutos())).collect(Collectors.toList())) ;
+        batimentoRepository.saveAll(batimentos);
 
+        return ResponseEntity.ok("Registros salvos com sucesso");
+    }
+
+
+    public ResponseEntity<BtmDataListDto> batimentosList(String cpf){
+
+        List<BtmReturnDto> batimentos=  batimentoRepository.findAllByUsuarioCpf(cpf).stream()
+                .map(b -> new BtmReturnDto(b.getHora(),b.getBatimentosMinutos())).toList();
+
+        return ResponseEntity.ok(new BtmDataListDto(cpf, batimentos));
 
     }
 

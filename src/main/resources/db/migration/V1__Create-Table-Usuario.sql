@@ -6,6 +6,8 @@ CREATE TABLE usuario (
     password TEXT NOT NULL,
     altura DOUBLE PRECISION,
     peso DOUBLE PRECISION,
-    contado_emergencia VARCHAR(255),
+    sexo VARCHAR(10),
+    data_nascimento DATE,
     role TEXT NOT NULL
 );
+

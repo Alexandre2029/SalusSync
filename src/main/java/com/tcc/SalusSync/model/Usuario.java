@@ -11,8 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Entity
 @Getter @Setter
@@ -26,21 +26,24 @@ public class Usuario implements UserDetails {
     private String password;
     private double altura;
     private double peso;
-    private String contadoEmergencia;
+    private String sexo;
     private UserRole role;
+    private Date DataNascimento ;
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Agenda> agenda= new ArrayList<>();
 
 
-    public Usuario(String nome, String cpf, String email, String senha, double altura, double peso,String contadoEmergencia) {
+    public Usuario(String nome, String cpf, String email, String senha, double altura, double peso,String sexo, Date dataNascimento, UserRole role) {
         this.nome = nome;
         this.cpf = cpf;
         this.login = email;
         this.password = senha;
         this.altura = altura;
         this.peso = peso;
-        this.contadoEmergencia = contadoEmergencia;
+        this.sexo = sexo;
+        this.DataNascimento= dataNascimento;
+        this.role = role;
     }
 
     public Usuario(){}
@@ -52,7 +55,7 @@ public class Usuario implements UserDetails {
         this.password = encryptedPassword;
         this.altura = altura;
         this.peso = peso;
-        this.contadoEmergencia = contato;
+        this.sexo = contato;
         this.role = role;
 
     }

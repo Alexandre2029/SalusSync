@@ -67,7 +67,7 @@ public class UsuarioService {
       var us = repository.findById(id);
 
       if ((us.isPresent())){
-        return   us.get().getContadoEmergencia();
+        return   us.get().getSexo();
       } else
           return "erro";
 

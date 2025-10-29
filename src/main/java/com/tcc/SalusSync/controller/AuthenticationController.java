@@ -54,7 +54,19 @@ public class AuthenticationController {
         var user = (UserDetails) auth.getPrincipal();
         var token = tokenService.generateToken(user);
 
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+        String cpf = null;
+        String nome = null;
+
+        if (user instanceof Usuario u) {
+            cpf = u.getCpf();
+            nome = u.getNome();
+        } else if (user instanceof Medico m) {
+            cpf = m.getCpf();
+            nome = m.getNome();
+        }
+
+
+        return ResponseEntity.ok(new LoginResponseDTO(token,cpf,nome));
     }
 
 
@@ -86,15 +98,17 @@ public class AuthenticationController {
 
         String encryptedPassword = passwordEncoder.encode(data.password());
         Usuario newUser = new Usuario(
+                data.nome(),
+                data.cpf(),
                 data.login(),
                 encryptedPassword,
-                data.role(),
-                data.cpf(),
-                data.contato(),
-                data.nome(),
                 data.altura(),
-                data.peso()
+                data.peso(),
+                data.sexo(),
+                data.dataNascimento(),
+                data.role()
         );
+
 
         return   usuarioService.cadastrar(newUser);
     }
